@@ -10,7 +10,7 @@ type sortCase struct {
 }
 
 func TestSortWord(t *testing.T) {
-	useCases := []sortCase{{"abcd", "abcd"}, {"dcba", "abcd"}}
+	useCases := []sortCase{{"abcd", "abcd"}, {"dcba", "abcd"}, {"dcbbbab", "abbbbcd"}}
 	for _, sc := range useCases {
 		expected := sc.after
 		result := SortAlphabeticalOrder(sc.before)
