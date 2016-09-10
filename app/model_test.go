@@ -22,6 +22,6 @@ func TestLoadDb(t *testing.T) {
 		t.Errorf("failed to load to DB")
 	}
 	if size <= 0 {
-		t.Errorf("failed to load to DB expected: >0, result:", string(size))
+		t.Errorf("failed to load to DB expected: >0, result:%d", size)
 	}
 }
