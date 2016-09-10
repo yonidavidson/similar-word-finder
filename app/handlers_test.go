@@ -65,7 +65,7 @@ func TestSimilarHandler(t *testing.T) {
 	t.Log("response:%v", rr)
 	data := new(SimilarResponse)
 	json.Unmarshal(rr.Body.Bytes(), &data)
-	words := data.similar
+	words := data.Similar
 
 	if len(words) != 1 {
 		t.Fatal("not the number of words in dictionary. expected:%d, result:%d", 1, len(words))

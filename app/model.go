@@ -7,7 +7,7 @@ type Db interface {
 }
 
 type SimilarResponse struct {
-	similar []string
+	Similar []string
 }
 
 type InMemoryDB map[string][]string
