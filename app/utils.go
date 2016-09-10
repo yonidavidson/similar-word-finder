@@ -54,3 +54,16 @@ func Contains(s []string, e string) bool {
 	}
 	return false
 }
+
+func Exclude(s []string, e string) []string {
+	if len(s) == 0 {
+		return s
+	}
+
+	for i, w := range s {
+		if w == e {
+			s = append(s[:i], s[i+1:]...)
+		}
+	}
+	return s
+}

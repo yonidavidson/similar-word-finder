@@ -62,7 +62,6 @@ func TestSimilarHandler(t *testing.T) {
 		t.Errorf("handler returned wrong status code: got %v want %v",
 			status, http.StatusOK)
 	}
-	t.Log("response:%v", rr)
 	data := new(SimilarResponse)
 	json.Unmarshal(rr.Body.Bytes(), &data)
 	words := data.Similar

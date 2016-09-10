@@ -1,12 +1,19 @@
 package main
 
 import (
+	"reflect"
 	"testing"
 )
 
 type sortCase struct {
 	before string
 	after  string
+}
+
+type excludeCase struct {
+	before []string
+	after  []string
+	key    string
 }
 
 func TestSortWord(t *testing.T) {
@@ -35,4 +42,20 @@ func TestDBLoad(t *testing.T) {
 
 	t.Log("size of loaded db is:%d ", size)
 	t.Log("db view:%v", db)
+}
+
+func TestExclude(t *testing.T) {
+	useCases := []excludeCase{
+		{[]string{"abcd"}, []string{}, "abcd"},
+		{[]string{"abcd", "dbca"}, []string{"dbca"}, "abcd"},
+		{[]string{}, []string{}, "abcd"},
+	}
+	for _, sc := range useCases {
+		key := sc.key
+		expected := sc.after
+		result := Exclude(sc.before, key)
+		if !reflect.DeepEqual(expected, result) {
+			t.Errorf("failed to exlude key expected: %v, result: %v, key:%s", expected, result, key)
+		}
+	}
 }
