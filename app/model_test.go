@@ -25,14 +25,14 @@ func TestDbEmptyInit(t *testing.T) {
 
 func TestSetGetDB(t *testing.T) {
 
-	db := new(InMemoryDB)
+	db := NewInMemoryDB()
 	db.set("key1", "value1")
 	db.set("key2", "value2")
 	db.set("key3", "value3")
 	db.set("key3", "value4")
 	s := db.size()
 	if s != 4 {
-		t.Errorf("db set didn't work - expected:4, result:" + string(s))
+		t.Errorf("db set didn't work - expected:4, result:%d", s)
 	}
 	valArray, err := db.get("key1")
 	if err != nil {
