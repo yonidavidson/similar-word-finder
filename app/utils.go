@@ -1,6 +1,11 @@
 package main
 
-import "sort"
+import (
+	"bufio"
+	"errors"
+	"os"
+	"sort"
+)
 
 type ByAlphabeticalOrder []byte
 
@@ -12,4 +17,31 @@ func SortAlphabeticalOrder(s string) string {
 	a := []byte(s)
 	sort.Sort(ByAlphabeticalOrder(a))
 	return string(a)
+}
+
+func LoadDataToDb(d Db, path string) (int, error) {
+	counter := 0
+	file, err := os.Open(path)
+	if err != nil {
+		return counter, err
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		key := SortAlphabeticalOrder(scanner.Text())
+		val := scanner.Text()
+		d.set(key, val)
+		counter++
+	}
+
+	if err := scanner.Err(); err != nil {
+		return counter, err
+	}
+
+	if counter != d.size() {
+		return counter, errors.New("error in size after loading data to db ")
+	}
+
+	return counter, nil
 }

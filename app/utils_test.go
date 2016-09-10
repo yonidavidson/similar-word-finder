@@ -19,3 +19,20 @@ func TestSortWord(t *testing.T) {
 		}
 	}
 }
+
+func TestDBLoad(t *testing.T) {
+	db := NewInMemoryDB()
+	size, err := LoadDataToDb(db, "words_clean_sample.txt")
+	if err != nil {
+		t.Errorf("failed to load db. result:%v", db)
+	}
+	if size < 5 {
+		t.Errorf("failed to load all data to db. result:%v", db)
+	}
+	if size != db.size() {
+		t.Errorf("miss match in db size. expected:%d , result:%d", db.size(), size)
+	}
+
+	t.Log("size of loaded db is:%d ", size)
+	t.Log("db view:%v", db)
+}
