@@ -29,4 +29,10 @@ func TestDBLoad(t *testing.T) {
 	if size < 5 {
 		t.Errorf("failed to load all data to db. result:%v", db)
 	}
+	if size != db.size() {
+		t.Errorf("miss match in db size. expected:%d , result:%d", db.size(), size)
+	}
+
+	t.Log("size of loaded db is:%d ", size)
+	t.Log("db view:%v", db)
 }
