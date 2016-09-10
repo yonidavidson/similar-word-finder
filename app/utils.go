@@ -1,6 +1,9 @@
 package main
 
-import "sort"
+import (
+	"errors"
+	"sort"
+)
 
 type ByAlphabeticalOrder []byte
 
@@ -12,4 +15,8 @@ func SortAlphabeticalOrder(s string) string {
 	a := []byte(s)
 	sort.Sort(ByAlphabeticalOrder(a))
 	return string(a)
+}
+
+func LoadDataToDb(d Db, path string) (int, error) {
+	return -1, errors.New("failed to load data to db")
 }

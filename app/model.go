@@ -6,7 +6,7 @@ import (
 
 type Db interface {
 	size() int
-	get(key string) (val string, err error)
+	get(key string) (val []string, err error)
 	set(key string, val string)
 }
 
