@@ -45,3 +45,25 @@ func LoadDataToDb(d Db, path string) (int, error) {
 
 	return counter, nil
 }
+
+func Contains(s []string, e string) bool {
+	for _, a := range s {
+		if a == e {
+			return true
+		}
+	}
+	return false
+}
+
+func Exclude(s []string, e string) []string {
+	if len(s) == 0 {
+		return s
+	}
+
+	for i, w := range s {
+		if w == e {
+			s = append(s[:i], s[i+1:]...)
+		}
+	}
+	return s
+}

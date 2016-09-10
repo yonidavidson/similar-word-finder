@@ -4,15 +4,6 @@ import (
 	"testing"
 )
 
-func contains(s []string, e string) bool {
-	for _, a := range s {
-		if a == e {
-			return true
-		}
-	}
-	return false
-}
-
 func TestDbEmptyInit(t *testing.T) {
 
 	db := new(InMemoryDB)
@@ -34,19 +25,15 @@ func TestSetGetDB(t *testing.T) {
 	if s != 4 {
 		t.Errorf("db set didn't work - expected:4, result:%d", s)
 	}
-	valArray, err := db.get("key1")
-	if err != nil {
-		t.Errorf("failed to get from db key1")
-	}
-	if !contains(valArray, "value1") {
+	valArray := db.get("key1")
+
+	if !Contains(valArray, "value1") {
 		t.Errorf("db.get got wrong values, expected:[value1], result:%v", valArray)
 	}
 
-	valArray, err = db.get("key3")
-	if err != nil {
-		t.Errorf("failed to get from db key3 ")
-	}
-	if !contains(valArray, "value3") || !contains(valArray, "value4") {
+	valArray = db.get("key3")
+
+	if !Contains(valArray, "value3") || !Contains(valArray, "value4") {
 		t.Errorf("db.get got wrong values, expected:[value3, value4], result:%v", valArray)
 	}
 }
