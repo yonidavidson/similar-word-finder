@@ -1,12 +1,8 @@
 package main
 
-import (
-	"errors"
-)
-
 type Db interface {
 	size() int
-	get(key string) (val []string, err error)
+	get(key string) (val []string)
 	set(key string, val string)
 }
 
@@ -28,13 +24,13 @@ func (d InMemoryDB) size() int {
 	return s
 }
 
-func (d InMemoryDB) get(key string) (val []string, err error) {
-	empty := []string{"empty"}
+func (d InMemoryDB) get(key string) []string {
+	empty := []string{}
 	valArray, ok := d[key]
 	if !ok {
-		return empty, errors.New("failed to get key:" + key)
+		return empty
 	}
-	return valArray, nil
+	return valArray
 }
 
 func (d InMemoryDB) set(key string, val string) {

@@ -20,6 +20,7 @@ var TEST_CASES = [...]TestCase{
 }
 
 func TestEndpointsReturnValue(t *testing.T) {
+	db = NewInMemoryDB()
 
 	for _, tcase := range TEST_CASES {
 		t.Log(tcase)
@@ -61,7 +62,7 @@ func TestSimilarHandler(t *testing.T) {
 		t.Errorf("handler returned wrong status code: got %v want %v",
 			status, http.StatusOK)
 	}
-
+	t.Log("response:%v", rr)
 	data := new(SimilarResponse)
 	json.Unmarshal(rr.Body.Bytes(), &data)
 	words := data.similar
