@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"github.com/zenazn/goji/web"
 	"net/http"
 	"net/http/httptest"
@@ -38,4 +39,42 @@ func TestEndpointsReturnValue(t *testing.T) {
 		}
 	}
 
+}
+
+func TestSimilarHandler(t *testing.T) {
+	db = NewInMemoryDB()
+	_, err := LoadDataToDb(db, "words_clean_sample.txt")
+	if err != nil {
+		t.Fatal(err)
+	}
+	req, err := http.NewRequest("GET", "/api/v1/similar?word=stressed", nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	rr := httptest.NewRecorder()
+	handler := web.HandlerFunc(SimilarHandler)
+	ctx := web.C{}
+
+	handler.ServeHTTPC(ctx, rr, req)
+	if status := rr.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+
+	data := new(SimilarResponse)
+	json.Unmarshal(rr.Body.Bytes(), &data)
+	words := data.similar
+
+	if len(words) != 1 {
+		t.Fatal("not the number of words in dictionary. expected:%d, result:%d", 1, len(words))
+	}
+
+	if Contains(words, "stressed") {
+		t.Fatal("should not return queried word , result:%v", words)
+	}
+
+	if !Contains(words, "desserts") {
+		t.Fatal("didn't find  similar word , result:%v", words)
+	}
 }

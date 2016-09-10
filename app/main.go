@@ -5,6 +5,8 @@ import (
 	"github.com/zenazn/goji/web/middleware"
 )
 
+var db Db
+
 func main() {
 
 	goji.Get("/api/v1/similar", SimilarHandler)

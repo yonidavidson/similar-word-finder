@@ -10,6 +10,10 @@ type Db interface {
 	set(key string, val string)
 }
 
+type SimilarResponse struct {
+	similar []string
+}
+
 type InMemoryDB map[string][]string
 
 func NewInMemoryDB() InMemoryDB {
