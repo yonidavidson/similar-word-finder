@@ -10,4 +10,4 @@ web:
 tester:
   extends:
     service: web
-  command: '/bin/bash -c "go get && go test"'
+  command: '/bin/bash -c "go get && go test -v"'
