@@ -1,23 +1,29 @@
-web:
+base:
  image: golang:1.6-wheezy
  volumes:
  - $PWD/app:/go/src/myapp
  working_dir: /go/src/myapp
  command: '/bin/bash -c "go get && go install && myapp"'
+
+web:
+ extends:
+  service: base 
  ports:
-  - "8000:8000"
+ - "8000:8000"
 
 tester:
-  extends:
-    service: web
-  command: '/bin/bash -c "go get && go test -v"'
+ extends:
+  service: base
+ command: '/bin/bash -c "go get && go test -v"'
 
+stress-web:
+ extends:
+  service: base
 
 stress-tester:
- image: golang:1.6-wheezy
+ extends:
+  service: base
  volumes:
  - $PWD/app/client:/go/src/myapp
- working_dir: /go/src/myapp
- command: '/bin/bash -c "go get && go install && myapp"'
  links:
- - web
+ - stress-web

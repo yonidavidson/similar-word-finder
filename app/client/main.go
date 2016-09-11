@@ -17,7 +17,7 @@ func main() {
 	duration := DURATION_SECONDS * time.Second
 	targeter := vegeta.NewStaticTargeter(vegeta.Target{
 		Method: "GET",
-		URL:    "http://web:8000/api/v1/similar?word=apple",
+		URL:    "http://stress-web:8000/api/v1/similar?word=apple",
 	})
 	attacker := vegeta.NewAttacker()
 	fmt.Printf("duration(s):%d, rate(s):%d \n\n", DURATION_SECONDS, RATE_PER_SECOND)
