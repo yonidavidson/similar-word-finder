@@ -78,3 +78,35 @@ func TestSimilarHandler(t *testing.T) {
 		t.Fatal("didn't find  similar word , result:%v", words)
 	}
 }
+
+func TestStatsHandler(t *testing.T) {
+	db = NewInMemoryDB()
+	loadSize, err := LoadDataToDb(db, "words_clean_sample.txt")
+	if err != nil {
+		t.Fatal(err)
+	}
+	serverProps.totalWords = loadSize
+
+	req, err := http.NewRequest("GET", "/api/v1/stats", nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	rr := httptest.NewRecorder()
+	handler := web.HandlerFunc(StatsHandler)
+	ctx := web.C{}
+
+	handler.ServeHTTPC(ctx, rr, req)
+	if status := rr.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+
+	data := new(Props)
+	json.Unmarshal(rr.Body.Bytes(), &data)
+	size := data.totalWords
+
+	if size != serverProps.totalWords {
+		t.Fatal("size of db not matching. expected:%d, result:%d", size, serverProps.totalWords)
+	}
+}

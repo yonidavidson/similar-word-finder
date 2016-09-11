@@ -6,6 +6,7 @@ import (
 )
 
 var db Db
+var serverProps Props
 
 func main() {
 	db = NewInMemoryDB()
