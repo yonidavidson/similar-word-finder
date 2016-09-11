@@ -56,16 +56,13 @@ func Contains(s []string, e string) bool {
 }
 
 func Exclude(s []string, e string) []string {
-	if len(s) == 0 {
-		return s
-	}
-
-	for i, w := range s {
-		if w == e {
-			s = append(s[:i], s[i+1:]...)
+	r := []string{}
+	for _, w := range s {
+		if w != e {
+			r = append(r, w)
 		}
 	}
-	return s
+	return r
 }
 
 func Average(oldA int64, val int64, count int) int64 {
