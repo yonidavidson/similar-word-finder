@@ -85,7 +85,7 @@ func TestStatsHandler(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	serverProps.totalWords = loadSize
+	appProps.TotalWords = loadSize
 
 	req, err := http.NewRequest("GET", "/api/v1/stats", nil)
 	if err != nil {
@@ -104,9 +104,9 @@ func TestStatsHandler(t *testing.T) {
 
 	data := new(Props)
 	json.Unmarshal(rr.Body.Bytes(), &data)
-	size := data.totalWords
+	size := data.TotalWords
 
-	if size != serverProps.totalWords {
-		t.Fatal("size of db not matching. expected:%d, result:%d", size, serverProps.totalWords)
+	if size != appProps.TotalWords {
+		t.Fatal("size of db not matching. expected:%d, result:%d", size, appProps.TotalWords)
 	}
 }

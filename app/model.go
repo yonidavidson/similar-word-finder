@@ -11,9 +11,9 @@ type SimilarResponse struct {
 }
 
 type Props struct {
-	totalWords          int
-	totalRequests       int
-	avgProcessingTimeNs int
+	TotalWords          int
+	TotalRequests       int
+	AvgProcessingTimeNs int
 }
 
 type InMemoryDB map[string][]string
