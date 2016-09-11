@@ -4,6 +4,7 @@ help     this message\n\
 shell    shell promt in container\n\
 setup    setup envrioment - not in use\n\
 test     run all tests\n\
+stress   run stress-test\n\
 run      start app\n\
 teardown tearing down local env\n\
 "
@@ -19,6 +20,10 @@ setup:
 test:
 	$(call pinfo,testing)
 	docker-compose up tester
+
+stress:
+	$(call pinfo,testing)
+	docker-compose up stress-tester
 
 run:
 	$(call pinfo,running)
