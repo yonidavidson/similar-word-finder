@@ -1,5 +1,7 @@
 package main
 
+import "time"
+
 type Db interface {
 	size() int
 	get(key string) (val []string)
@@ -13,7 +15,7 @@ type SimilarResponse struct {
 type Props struct {
 	TotalWords          int
 	TotalRequests       int
-	AvgProcessingTimeNs int
+	AvgProcessingTimeNs int64
 }
 
 type InMemoryDB map[string][]string
@@ -41,4 +43,10 @@ func (d InMemoryDB) get(key string) []string {
 
 func (d InMemoryDB) set(key string, val string) {
 	d[key] = append(d[key], val)
+}
+
+func (p *Props) update(start time.Time) {
+	elapsedNs := time.Since(start).Nanoseconds()
+	p.TotalRequests++
+	p.AvgProcessingTimeNs = Average(p.AvgProcessingTimeNs, elapsedNs, p.TotalRequests)
 }

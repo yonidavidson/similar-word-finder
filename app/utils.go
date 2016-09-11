@@ -67,3 +67,8 @@ func Exclude(s []string, e string) []string {
 	}
 	return s
 }
+
+func Average(oldA int64, val int64, count int) int64 {
+	a := (oldA*int64(count-1) + val) / int64(count)
+	return a
+}
