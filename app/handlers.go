@@ -5,9 +5,11 @@ import (
 	"fmt"
 	"github.com/zenazn/goji/web"
 	"net/http"
+	"time"
 )
 
 func SimilarHandler(c web.C, w http.ResponseWriter, r *http.Request) {
+	defer appProps.update(time.Now())
 	payload := new(SimilarResponse)
 	word := r.URL.Query().Get("word")
 	key := SortAlphabeticalOrder(word)
