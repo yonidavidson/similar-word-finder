@@ -10,6 +10,11 @@ A small web service for printing similar words in the English language.
 
 * make test
 
+## stress-test app
+
+* make stress
+
+
 ## Algorithm description
 
 1. Load data to internal DB.
