@@ -1,7 +1,6 @@
 package main
 
 import (
-	"reflect"
 	"testing"
 )
 
@@ -54,7 +53,7 @@ func TestExclude(t *testing.T) {
 		key := sc.key
 		expected := sc.after
 		result := Exclude(sc.before, key)
-		if !reflect.DeepEqual(expected, result) {
+		if Contains(result, key) {
 			t.Errorf("failed to exlude key expected: %v, result: %v, key:%s", expected, result, key)
 		}
 	}
