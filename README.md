@@ -1,4 +1,4 @@
-# similar-word-finder
+# Similar-word-finder
 
 A small web service for printing similar words in the English language.
 
@@ -6,11 +6,11 @@ A small web service for printing similar words in the English language.
 
 * make run
 
-## test app
+## Test app
 
 * make test
 
-## stress-test app
+## Stress-test app
 
 * make stress
 
