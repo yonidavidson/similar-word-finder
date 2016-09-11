@@ -14,11 +14,12 @@ web:
 tester:
  extends:
   service: base
- command: '/bin/bash -c "go get && go test -v"'
+ command: '/bin/bash -c "go get && go test -race -v"'
 
 stress-web:
  extends:
   service: base
+ command: '/bin/bash -c "go get && go install -race && myapp"'
 
 stress-tester:
  extends:
