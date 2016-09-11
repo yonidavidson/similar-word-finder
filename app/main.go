@@ -6,6 +6,7 @@ import (
 )
 
 var db Db
+var appProps Props
 
 func main() {
 	db = NewInMemoryDB()
@@ -13,7 +14,8 @@ func main() {
 	if err != nil {
 		log.Fatal("failed to load DB. error=" + err.Error())
 	}
-	log.Println("loaded %d values to db", size)
+	appProps.TotalWords = size
+	log.Println("loaded %d values to db", appProps.TotalWords)
 	goji.Get("/api/v1/similar", SimilarHandler)
 	goji.Get("/api/v1/stats", StatsHandler)
 	goji.Serve()

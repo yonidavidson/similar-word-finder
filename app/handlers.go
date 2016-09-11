@@ -15,9 +15,11 @@ func SimilarHandler(c web.C, w http.ResponseWriter, r *http.Request) {
 	payload.Similar = Exclude(data, word)
 	json, _ := json.Marshal(payload)
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
-	fmt.Fprintf(w, "%v", string(json))
+	fmt.Fprintf(w, string(json))
 }
 
 func StatsHandler(c web.C, w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "StatsHandler: not ready")
+	json, _ := json.Marshal(appProps)
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
+	fmt.Fprintf(w, string(json))
 }

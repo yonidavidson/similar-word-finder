@@ -10,6 +10,12 @@ type SimilarResponse struct {
 	Similar []string
 }
 
+type Props struct {
+	TotalWords          int
+	TotalRequests       int
+	AvgProcessingTimeNs int
+}
+
 type InMemoryDB map[string][]string
 
 func NewInMemoryDB() InMemoryDB {
