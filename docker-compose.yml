@@ -11,3 +11,13 @@ tester:
   extends:
     service: web
   command: '/bin/bash -c "go get && go test -v"'
+
+
+stress-tester:
+ image: golang:1.6-wheezy
+ volumes:
+ - $PWD/app/client:/go/src/myapp
+ working_dir: /go/src/myapp
+ command: '/bin/bash -c "go get && go install && myapp"'
+ links:
+ - web
