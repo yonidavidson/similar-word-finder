@@ -8,7 +8,7 @@ import (
 	vegeta "github.com/tsenart/vegeta/lib"
 )
 
-const RATE_PER_SECOND = 1000
+const RATE_PER_SECOND = 100
 const DURATION_SECONDS = 20
 
 func main() {
