@@ -9,16 +9,26 @@ import (
 )
 
 const RATE_PER_SECOND = 100
-const DURATION_SECONDS = 4
+const DURATION_SECONDS = 20
 
 func main() {
 
 	rate := uint64(RATE_PER_SECOND) // per second
 	duration := DURATION_SECONDS * time.Second
-	targeter := vegeta.NewStaticTargeter(vegeta.Target{
-		Method: "GET",
-		URL:    "http://stress-web:8000/api/v1/similar?word=apple",
-	})
+	targeter := vegeta.NewStaticTargeter(
+		vegeta.Target{
+			Method: "GET",
+			URL:    "http://stress-web:8000/api/v1/similar?word=apple",
+		},
+		vegeta.Target{
+			Method: "GET",
+			URL:    "http://stress-web:8000/api/v1/stats",
+		},
+		vegeta.Target{
+			Method: "GET",
+			URL:    "http://stress-web:8000/api/v1/similar?word=live",
+		},
+	)
 	attacker := vegeta.NewAttacker()
 	fmt.Printf("duration(s):%d, rate(s):%d \n\n", DURATION_SECONDS, RATE_PER_SECOND)
 	var metrics vegeta.Metrics
