@@ -9,7 +9,7 @@ import (
 )
 
 func SimilarHandler(c web.C, w http.ResponseWriter, r *http.Request) {
-	defer appProps.update(time.Now())
+	defer updateProps(time.Now())
 	payload := new(SimilarResponse)
 	word := r.URL.Query().Get("word")
 	key := SortAlphabeticalOrder(word)
@@ -21,6 +21,7 @@ func SimilarHandler(c web.C, w http.ResponseWriter, r *http.Request) {
 }
 
 func StatsHandler(c web.C, w http.ResponseWriter, r *http.Request) {
+	appProps := readProps()
 	json, _ := json.Marshal(appProps)
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	fmt.Fprintf(w, string(json))
