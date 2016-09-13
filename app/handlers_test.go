@@ -21,7 +21,7 @@ var TEST_CASES = [...]TestCase{
 
 func TestEndpointsReturnValue(t *testing.T) {
 	db = NewInMemoryDB()
-
+	go propsHandler(0, updater, reader)
 	for _, tcase := range TEST_CASES {
 		t.Log(tcase)
 		req, err := http.NewRequest(tcase.verb, tcase.url, nil)
@@ -44,10 +44,11 @@ func TestEndpointsReturnValue(t *testing.T) {
 
 func TestSimilarHandler(t *testing.T) {
 	db = NewInMemoryDB()
-	_, err := LoadDataToDb(db, "words_clean_sample.txt")
+	size, err := LoadDataToDb(db, "words_clean_sample.txt")
 	if err != nil {
 		t.Fatal(err)
 	}
+	go propsHandler(size, updater, reader)
 	req, err := http.NewRequest("GET", "/api/v1/similar?word=stressed", nil)
 	if err != nil {
 		t.Fatal(err)
@@ -85,8 +86,7 @@ func TestStatsHandler(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	appProps.TotalWords = loadSize
-
+	go propsHandler(loadSize, updater, reader)
 	req, err := http.NewRequest("GET", "/api/v1/stats", nil)
 	if err != nil {
 		t.Fatal(err)
@@ -106,7 +106,7 @@ func TestStatsHandler(t *testing.T) {
 	json.Unmarshal(rr.Body.Bytes(), &data)
 	size := data.TotalWords
 
-	if size != appProps.TotalWords {
-		t.Fatal("size of db not matching. expected:%d, result:%d", size, appProps.TotalWords)
+	if size != loadSize {
+		t.Fatal("size of db not matching. expected:%d, result:%d", size, loadSize)
 	}
 }
